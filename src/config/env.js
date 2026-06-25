@@ -19,5 +19,7 @@ module.exports = {
     refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   },
   passwordResetExpiresIn: Number(process.env.PASSWORD_RESET_EXPIRES_IN) || 60 * 60 * 1000,
+  redisUrl: process.env.REDIS_URL || 'redis://127.0.0.1:6379',
   isDevelopment: (process.env.NODE_ENV || 'development') === 'development',
+  isTest: process.env.NODE_ENV === 'test',
 };
