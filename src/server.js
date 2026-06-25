@@ -2,12 +2,14 @@ const createApp = require('./app');
 const connectDatabase = require('./config/database');
 const env = require('./config/env');
 const { seedRecordCategories } = require('./seeds/recordCategories.seed');
+const { seedLoanMarketplace } = require('./seeds/loanMarketplace.seed');
 
 const { startScoreWorker } = require('./queues/scoreWorker');
 
 async function startServer() {
   await connectDatabase();
   await seedRecordCategories();
+  await seedLoanMarketplace();
 
   const app = createApp();
 
