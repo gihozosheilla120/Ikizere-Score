@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const path = require('path');
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const setupSwagger = require('./config/swagger');
@@ -20,10 +21,19 @@ function createApp() {
     res.json({ success: true, message: 'Ikizere Score API is running' });
   });
 
+  app.use(
+    '/uploads',
+    express.static(path.join(__dirname, '..', 'uploads'), {
+      fallthrough: false,
+    })
+  );
+
   setupSwagger(app);
 
   app.use('/auth', routes.auth);
   app.use('/users', routes.users);
+  app.use('/verification', routes.verification);
+  app.use('/records', routes.records);
 
   app.use((_req, _res, next) => {
     next(ApiError.notFound('Route not found'));
