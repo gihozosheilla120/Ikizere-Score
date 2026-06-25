@@ -35,6 +35,7 @@ function createApp() {
   app.use('/verification', routes.verification);
   app.use('/records', routes.records);
   app.use('/score', routes.score);
+  app.use('/loans', routes.loans);
 
   app.use((_req, _res, next) => {
     next(ApiError.notFound('Route not found'));
