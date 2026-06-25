@@ -2,6 +2,7 @@ const ApiError = require('../../utils/ApiError');
 const financialRecordsRepository = require('./financial-records.repository');
 const { seedRecordCategories } = require('../../seeds/recordCategories.seed');
 const { AuditAction } = require('../../constants/enums');
+const { enqueueScoreRecalculation } = require('../../queues/scoreQueue');
 
 class FinancialRecordsService {
   normalizePayload(payload) {
@@ -49,6 +50,8 @@ class FinancialRecordsService {
       ipAddress: meta.ipAddress || null,
     });
 
+    await enqueueScoreRecalculation(userId);
+
     return record;
   }
 
@@ -89,6 +92,8 @@ class FinancialRecordsService {
       ipAddress: meta.ipAddress || null,
     });
 
+    await enqueueScoreRecalculation(userId);
+
     return updated;
   }
 
@@ -109,6 +114,8 @@ class FinancialRecordsService {
       },
       ipAddress: meta.ipAddress || null,
     });
+
+    await enqueueScoreRecalculation(userId);
 
     return deleted;
   }
