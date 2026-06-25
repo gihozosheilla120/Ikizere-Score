@@ -8,6 +8,18 @@ function errorHandler(err, req, res, next) {
   let message = err.message || 'Internal server error';
   let errors = err.errors || null;
 
+  // Multer errors
+  if (err && err.name === 'MulterError') {
+    statusCode = 400;
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      message = 'File too large';
+    } else if (err.code === 'LIMIT_FILE_COUNT') {
+      message = 'Too many files uploaded';
+    } else {
+      message = 'File upload failed';
+    }
+  }
+
   if (err.name === 'ValidationError' && err.errors) {
     statusCode = 400;
     message = 'Validation failed';
