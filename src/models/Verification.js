@@ -16,7 +16,15 @@ const verificationSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-    tradeLicenseUrl: {
+    businessRegistrationCertUrl: {
+      type: String,
+      default: null,
+    },
+    taxCertificateUrl: {
+      type: String,
+      default: null,
+    },
+    profilePhotoUrl: {
       type: String,
       default: null,
     },
@@ -26,7 +34,7 @@ const verificationSchema = new mongoose.Schema(
         values: enumValues(VerificationStatus),
         message: '{VALUE} is not a valid verification status',
       },
-      default: VerificationStatus.NOT_STARTED,
+      default: VerificationStatus.PENDING,
     },
     rejectionReason: {
       type: String,
@@ -55,6 +63,7 @@ const verificationSchema = new mongoose.Schema(
 
 verificationSchema.index({ userId: 1 }, { unique: true });
 verificationSchema.index({ status: 1 });
+verificationSchema.index({ submittedAt: -1 });
 
 verificationSchema.pre('save', function setSubmissionTimestamp(next) {
   if (
