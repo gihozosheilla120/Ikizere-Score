@@ -3,6 +3,7 @@ const BusinessProfile = require('./BusinessProfile');
 const AuditLog = require('./AuditLog');
 const Verification = require('./Verification');
 const FinancialRecord = require('./FinancialRecord');
+const RecordCategory = require('./RecordCategory');
 const Score = require('./Score');
 const LoanProduct = require('./LoanProduct');
 const LoanApplication = require('./LoanApplication');
@@ -14,6 +15,7 @@ module.exports = {
   AuditLog,
   Verification,
   FinancialRecord,
+  RecordCategory,
   Score,
   LoanProduct,
   LoanApplication,
