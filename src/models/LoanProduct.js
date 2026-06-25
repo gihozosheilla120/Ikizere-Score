@@ -1,26 +1,29 @@
 const mongoose = require('mongoose');
 const softDeletePlugin = require('./plugins/softDelete');
-const {
-  InterestRateType,
-  LoanProductTag,
-  enumValues,
-} = require('../constants/enums');
+const { Currency, enumValues } = require('../constants/enums');
 
-const lenderSchema = new mongoose.Schema(
+const eligibilityRulesSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, 'Lender name is required'],
-      trim: true,
-      maxlength: [150, 'Lender name cannot exceed 150 characters'],
+    minLoanReadinessPercent: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 100,
     },
-    logoUrl: {
+    requiresVerification: {
+      type: Boolean,
+      default: false,
+    },
+    minLoanReadinessRating: {
       type: String,
       default: null,
+      trim: true,
     },
-    verified: {
-      type: Boolean,
-      default: true,
+    notes: {
+      type: String,
+      default: '',
+      trim: true,
+      maxlength: [500, 'Eligibility notes cannot exceed 500 characters'],
     },
   },
   { _id: false }
@@ -28,7 +31,19 @@ const lenderSchema = new mongoose.Schema(
 
 const loanProductSchema = new mongoose.Schema(
   {
-    name: {
+    lenderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Lender',
+      required: [true, 'Lender ID is required'],
+      index: true,
+    },
+    lenderName: {
+      type: String,
+      required: [true, 'Lender name is required'],
+      trim: true,
+      maxlength: [150, 'Lender name cannot exceed 150 characters'],
+    },
+    productName: {
       type: String,
       required: [true, 'Product name is required'],
       trim: true,
@@ -40,19 +55,16 @@ const loanProductSchema = new mongoose.Schema(
       trim: true,
       maxlength: [500, 'Description cannot exceed 500 characters'],
     },
-    lender: {
-      type: lenderSchema,
-      required: [true, 'Lender information is required'],
-    },
-    maxAmount: {
+    minimumScore: {
       type: Number,
-      required: [true, 'Maximum amount is required'],
-      min: [1, 'Maximum amount must be positive'],
+      default: 400,
+      min: [300, 'Minimum score cannot be below 300'],
+      max: [850, 'Minimum score cannot exceed 850'],
     },
-    minAmount: {
+    minimumRevenue: {
       type: Number,
-      default: 50000,
-      min: [1, 'Minimum amount must be positive'],
+      default: 0,
+      min: [0, 'Minimum revenue cannot be negative'],
     },
     interestRate: {
       type: Number,
@@ -60,45 +72,32 @@ const loanProductSchema = new mongoose.Schema(
       min: [0, 'Interest rate cannot be negative'],
       max: [100, 'Interest rate cannot exceed 100%'],
     },
-    interestRateType: {
+    minAmount: {
+      type: Number,
+      default: 50000,
+      min: [1, 'Minimum amount must be positive'],
+    },
+    maxAmount: {
+      type: Number,
+      required: [true, 'Maximum amount is required'],
+      min: [1, 'Maximum amount must be positive'],
+    },
+    termMonths: {
+      type: Number,
+      required: [true, 'Term in months is required'],
+      min: [1, 'Term must be at least 1 month'],
+    },
+    currency: {
       type: String,
       enum: {
-        values: enumValues(InterestRateType),
-        message: '{VALUE} is not a valid interest rate type',
+        values: enumValues(Currency),
+        message: '{VALUE} is not a supported currency',
       },
-      default: InterestRateType.FIXED,
+      default: Currency.RWF,
     },
-    maxTermMonths: {
-      type: Number,
-      required: [true, 'Maximum term is required'],
-      min: [1, 'Maximum term must be at least 1 month'],
-    },
-    minTermMonths: {
-      type: Number,
-      default: 3,
-      min: [1, 'Minimum term must be at least 1 month'],
-    },
-    tags: {
-      type: [String],
-      default: [],
-      validate: {
-        validator(tags) {
-          const allowed = enumValues(LoanProductTag);
-          return tags.every((tag) => allowed.includes(tag));
-        },
-        message: 'One or more tags are invalid',
-      },
-    },
-    minScore: {
-      type: Number,
-      default: 400,
-      min: [300, 'Minimum score cannot be below 300'],
-      max: [850, 'Minimum score cannot exceed 850'],
-    },
-    processingFee: {
-      type: Number,
-      default: 5000,
-      min: [0, 'Processing fee cannot be negative'],
+    eligibilityRules: {
+      type: eligibilityRulesSchema,
+      default: () => ({}),
     },
     isActive: {
       type: Boolean,
@@ -114,21 +113,12 @@ const loanProductSchema = new mongoose.Schema(
 loanProductSchema.plugin(softDeletePlugin);
 
 loanProductSchema.index({ isActive: 1, maxAmount: -1 });
-loanProductSchema.index({ name: 'text', 'lender.name': 'text' });
+loanProductSchema.index({ lenderName: 'text', productName: 'text' });
 
 loanProductSchema.pre('validate', function validateAmountRange(next) {
   if (this.minAmount != null && this.maxAmount != null && this.minAmount > this.maxAmount) {
     this.invalidate('minAmount', 'Minimum amount cannot exceed maximum amount');
   }
-
-  if (
-    this.minTermMonths != null &&
-    this.maxTermMonths != null &&
-    this.minTermMonths > this.maxTermMonths
-  ) {
-    this.invalidate('minTermMonths', 'Minimum term cannot exceed maximum term');
-  }
-
   next();
 });
 
