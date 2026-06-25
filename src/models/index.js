@@ -10,6 +10,7 @@ const LoanProduct = require('./LoanProduct');
 const Lender = require('./Lender');
 const UserLoanMatch = require('./UserLoanMatch');
 const LoanApplication = require('./LoanApplication');
+const LoanApplicationEvent = require('./LoanApplicationEvent');
 const Notification = require('./Notification');
 
 module.exports = {
@@ -25,5 +26,6 @@ module.exports = {
   LoanProduct,
   UserLoanMatch,
   LoanApplication,
+  LoanApplicationEvent,
   Notification,
 };

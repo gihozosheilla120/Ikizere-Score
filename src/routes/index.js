@@ -3,7 +3,7 @@ const businessProfileRoutes = require('../modules/business-profile/business-prof
 const verificationRoutes = require('../modules/verification/verification.routes');
 const financialRecordsRoutes = require('../modules/financial-records/financial-records.routes');
 const scoreRoutes = require('../modules/score/score.routes');
-const loanMarketplaceRoutes = require('../modules/loan-marketplace/loan-marketplace.routes');
+const loansRoutes = require('./loans.routes');
 
 module.exports = {
   auth: authRoutes,
@@ -11,5 +11,5 @@ module.exports = {
   verification: verificationRoutes,
   records: financialRecordsRoutes,
   score: scoreRoutes,
-  loans: loanMarketplaceRoutes,
+  loans: loansRoutes,
 };

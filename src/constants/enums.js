@@ -77,6 +77,8 @@ const AuditAction = Object.freeze({
   FINANCIAL_RECORD_CREATED: 'financial_record_created',
   FINANCIAL_RECORD_UPDATED: 'financial_record_updated',
   FINANCIAL_RECORD_DELETED: 'financial_record_deleted',
+  LOAN_APPLICATION_CREATED: 'loan_application_created',
+  LOAN_APPLICATION_CANCELLED: 'loan_application_cancelled',
 });
 
 const VerificationStatus = Object.freeze({
@@ -198,11 +200,22 @@ const LoanProductTag = Object.freeze({
 });
 
 const LoanApplicationStatus = Object.freeze({
+  DRAFT: 'draft',
   SUBMITTED: 'submitted',
   UNDER_REVIEW: 'under_review',
   APPROVED: 'approved',
   REJECTED: 'rejected',
-  DISBURSED: 'disbursed',
+  FUNDED: 'funded',
+});
+
+const LoanApplicationEventType = Object.freeze({
+  APPLICATION_CREATED: 'application_created',
+  SUBMITTED: 'submitted',
+  UNDER_REVIEW: 'under_review',
+  APPROVED: 'approved',
+  REJECTED: 'rejected',
+  FUNDED: 'funded',
+  CANCELLED: 'cancelled',
 });
 
 const ApprovalProbability = Object.freeze({
@@ -258,6 +271,7 @@ module.exports = {
   InterestRateType,
   LoanProductTag,
   LoanApplicationStatus,
+  LoanApplicationEventType,
   ApprovalProbability,
   TimelineStepStatus,
   WorkflowStepState,
