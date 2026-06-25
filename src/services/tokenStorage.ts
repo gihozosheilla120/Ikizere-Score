@@ -12,16 +12,16 @@ export const tokenStorage = {
   },
 
   async setTokens(tokens: AuthTokens): Promise<void> {
-    await AsyncStorage.multiSet([
-      [STORAGE_KEYS.ACCESS_TOKEN, tokens.accessToken],
-      [STORAGE_KEYS.REFRESH_TOKEN, tokens.refreshToken],
+    await Promise.all([
+      AsyncStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, tokens.accessToken),
+      AsyncStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, tokens.refreshToken),
     ]);
   },
 
   async clearTokens(): Promise<void> {
-    await AsyncStorage.multiRemove([
-      STORAGE_KEYS.ACCESS_TOKEN,
-      STORAGE_KEYS.REFRESH_TOKEN,
+    await Promise.all([
+      AsyncStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN),
+      AsyncStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN),
     ]);
   },
 
@@ -44,10 +44,10 @@ export const tokenStorage = {
   },
 
   async clearSession(): Promise<void> {
-    await AsyncStorage.multiRemove([
-      STORAGE_KEYS.ACCESS_TOKEN,
-      STORAGE_KEYS.REFRESH_TOKEN,
-      STORAGE_KEYS.USER,
+    await Promise.all([
+      AsyncStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN),
+      AsyncStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN),
+      AsyncStorage.removeItem(STORAGE_KEYS.USER),
     ]);
   },
 
