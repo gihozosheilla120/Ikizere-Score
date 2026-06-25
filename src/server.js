@@ -1,9 +1,11 @@
 const createApp = require('./app');
 const connectDatabase = require('./config/database');
 const env = require('./config/env');
+const { seedRecordCategories } = require('./seeds/recordCategories.seed');
 
 async function startServer() {
   await connectDatabase();
+  await seedRecordCategories();
 
   const app = createApp();
 
