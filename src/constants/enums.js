@@ -2,8 +2,14 @@ const AccountStatus = Object.freeze({
   REGISTERED: 'registered',
   PROFILE_INCOMPLETE: 'profile_incomplete',
   VERIFICATION_PENDING: 'verification_pending',
+  VERIFICATION_REJECTED: 'verification_rejected',
   VERIFIED: 'verified',
   ACTIVE: 'active',
+});
+
+const UserRole = Object.freeze({
+  USER: 'user',
+  ADMIN: 'admin',
 });
 
 const MembershipTier = Object.freeze({
@@ -64,10 +70,16 @@ const AuditAction = Object.freeze({
   BUSINESS_PROFILE_CREATED: 'business_profile_created',
   BUSINESS_PROFILE_UPDATED: 'business_profile_updated',
   BUSINESS_PROFILE_COMPLETED: 'business_profile_completed',
+  VERIFICATION_SUBMITTED: 'verification_submitted',
+  VERIFICATION_APPROVED: 'verification_approved',
+  VERIFICATION_REJECTED: 'verification_rejected',
+  VERIFICATION_FILES_UPLOADED: 'verification_files_uploaded',
+  FINANCIAL_RECORD_CREATED: 'financial_record_created',
+  FINANCIAL_RECORD_UPDATED: 'financial_record_updated',
+  FINANCIAL_RECORD_DELETED: 'financial_record_deleted',
 });
 
 const VerificationStatus = Object.freeze({
-  NOT_STARTED: 'not_started',
   PENDING: 'pending',
   UNDER_REVIEW: 'under_review',
   APPROVED: 'approved',
@@ -135,6 +147,17 @@ const PaymentMethod = Object.freeze({
 
 const Currency = Object.freeze({
   RWF: 'RWF',
+  USD: 'USD',
+  TZS: 'TZS',
+});
+
+const RecordSource = Object.freeze({
+  MANUAL: 'manual',
+  MOBILE_MONEY: 'mobile_money',
+  BANK_TRANSFER: 'bank_transfer',
+  BUSINESS_ACCOUNT: 'business_account',
+  CASH: 'cash',
+  CREDIT_LINE: 'credit_line',
 });
 
 const ScoreRating = Object.freeze({
@@ -213,6 +236,7 @@ const enumValues = (enumObj) => Object.values(enumObj);
 
 module.exports = {
   AccountStatus,
+  UserRole,
   MembershipTier,
   Language,
   BusinessType,
@@ -227,6 +251,7 @@ module.exports = {
   RECORD_CATEGORIES_BY_TYPE,
   PaymentMethod,
   Currency,
+  RecordSource,
   ScoreRating,
   LoanReadinessRating,
   LoanPurpose,
