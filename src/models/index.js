@@ -7,6 +7,8 @@ const RecordCategory = require('./RecordCategory');
 const Score = require('./Score');
 const ScoreHistory = require('./ScoreHistory');
 const LoanProduct = require('./LoanProduct');
+const Lender = require('./Lender');
+const UserLoanMatch = require('./UserLoanMatch');
 const LoanApplication = require('./LoanApplication');
 const Notification = require('./Notification');
 
@@ -19,7 +21,9 @@ module.exports = {
   RecordCategory,
   Score,
   ScoreHistory,
+  Lender,
   LoanProduct,
+  UserLoanMatch,
   LoanApplication,
   Notification,
 };
