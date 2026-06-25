@@ -7,6 +7,7 @@ const {
   Language,
   BusinessType,
   TrustTier,
+  UserRole,
   enumValues,
 } = require('../constants/enums');
 
@@ -76,6 +77,15 @@ const userSchema = new mongoose.Schema(
     memberSince: {
       type: Date,
       default: Date.now,
+    },
+    role: {
+      type: String,
+      enum: {
+        values: enumValues(UserRole),
+        message: '{VALUE} is not a valid user role',
+      },
+      default: UserRole.USER,
+      index: true,
     },
     accountStatus: {
       type: String,
