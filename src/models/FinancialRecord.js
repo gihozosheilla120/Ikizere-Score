@@ -1,29 +1,6 @@
 const mongoose = require('mongoose');
 const softDeletePlugin = require('./plugins/softDelete');
-const {
-  RecordType,
-  RecordCategory,
-  RECORD_CATEGORIES_BY_TYPE,
-  PaymentMethod,
-  Currency,
-  enumValues,
-} = require('../constants/enums');
-
-const CATEGORY_LABELS = Object.freeze({
-  [RecordCategory.RETAIL_SALES]: 'Retail Sales',
-  [RecordCategory.CLIENT_PAYMENT]: 'Client Payment',
-  [RecordCategory.SERVICE_INCOME]: 'Service Income',
-  [RecordCategory.OTHER_INCOME]: 'Other Income',
-  [RecordCategory.INVENTORY]: 'Inventory Restock',
-  [RecordCategory.UTILITIES]: 'Electricity Bill',
-  [RecordCategory.RENT]: 'Rent',
-  [RecordCategory.SALARIES]: 'Salaries',
-  [RecordCategory.LOAN_INSTALLMENT]: 'Loan Installment',
-  [RecordCategory.OTHER_EXPENSE]: 'Other Expense',
-  [RecordCategory.BUSINESS_SAVINGS]: 'Business Savings',
-  [RecordCategory.EMERGENCY_FUND]: 'Emergency Fund',
-  [RecordCategory.OTHER_SAVINGS]: 'Other Savings',
-});
+const { RecordType, Currency, RecordSource, enumValues } = require('../constants/enums');
 
 const financialRecordSchema = new mongoose.Schema(
   {
@@ -40,6 +17,14 @@ const financialRecordSchema = new mongoose.Schema(
         values: enumValues(RecordType),
         message: '{VALUE} is not a valid record type',
       },
+      index: true,
+    },
+    category: {
+      type: String,
+      required: [true, 'Category is required'],
+      trim: true,
+      lowercase: true,
+      index: true,
     },
     amount: {
       type: Number,
@@ -54,20 +39,12 @@ const financialRecordSchema = new mongoose.Schema(
         message: '{VALUE} is not a supported currency',
       },
       default: Currency.RWF,
+      index: true,
     },
-    category: {
-      type: String,
-      required: [true, 'Category is required'],
-      enum: {
-        values: enumValues(RecordCategory),
-        message: '{VALUE} is not a valid record category',
-      },
-    },
-    title: {
-      type: String,
-      default: null,
-      trim: true,
-      maxlength: [150, 'Title cannot exceed 150 characters'],
+    transactionDate: {
+      type: Date,
+      required: [true, 'Transaction date is required'],
+      index: true,
     },
     description: {
       type: String,
@@ -75,43 +52,49 @@ const financialRecordSchema = new mongoose.Schema(
       trim: true,
       maxlength: [500, 'Description cannot exceed 500 characters'],
     },
-    date: {
-      type: Date,
-      required: [true, 'Transaction date is required'],
-    },
-    paymentMethod: {
+    source: {
       type: String,
       enum: {
-        values: enumValues(PaymentMethod),
-        message: '{VALUE} is not a valid payment method',
+        values: enumValues(RecordSource),
+        message: '{VALUE} is not a valid source',
       },
-      default: PaymentMethod.MOBILE_MONEY,
+      default: RecordSource.MANUAL,
+    },
+    receiptUrl: {
+      type: String,
+      default: null,
+      trim: true,
+    },
+    tags: {
+      type: [String],
+      default: [],
+      validate: {
+        validator(tags) {
+          return tags.length <= 10;
+        },
+        message: 'A record cannot have more than 10 tags',
+      },
     },
   },
   {
     timestamps: true,
+    createdAt: true,
+    updatedAt: true,
   }
 );
 
 financialRecordSchema.plugin(softDeletePlugin);
 
-financialRecordSchema.index({ userId: 1, date: -1 });
-financialRecordSchema.index({ userId: 1, type: 1, date: -1 });
+financialRecordSchema.index({ userId: 1, transactionDate: -1 });
+financialRecordSchema.index({ userId: 1, type: 1, transactionDate: -1 });
+financialRecordSchema.index({ userId: 1, category: 1, transactionDate: -1 });
+financialRecordSchema.index({ userId: 1, currency: 1 });
 financialRecordSchema.index({ userId: 1, createdAt: -1 });
-
-financialRecordSchema.path('category').validate(function validateCategoryForType(value) {
-  const allowed = RECORD_CATEGORIES_BY_TYPE[this.type];
-  if (!allowed) {
-    return false;
-  }
-  return allowed.includes(value);
-}, 'Category does not match the selected record type');
-
-financialRecordSchema.pre('validate', function setTitleFromCategory(next) {
-  if (!this.title && this.category) {
-    this.title = CATEGORY_LABELS[this.category] || this.category;
-  }
-  next();
+financialRecordSchema.index({
+  description: 'text',
+  category: 'text',
+  source: 'text',
+  tags: 'text',
 });
 
 const FinancialRecord = mongoose.model('FinancialRecord', financialRecordSchema);
