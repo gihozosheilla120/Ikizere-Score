@@ -44,6 +44,9 @@ export const recordsService = {
 
   getMonthlyInsights(params: { year: number; month: number; currency?: string }) {
     return apiGet<{
+      year: number;
+      month: number;
+      currency: string | null;
       totalIncome: number;
       totalExpenses: number;
       totalSavings: number;

@@ -4,6 +4,7 @@ export const ROUTES = {
   MAIN: 'Main',
 
   // Auth stack
+  SPLASH: 'Splash',
   ONBOARDING: 'Onboarding',
   SIGN_IN: 'SignIn',
   SIGN_UP_STEP_1: 'SignUpStep1',

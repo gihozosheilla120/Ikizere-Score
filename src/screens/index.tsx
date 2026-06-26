@@ -1,36 +1,14 @@
 import { PlaceholderScreen } from '../components/ui';
 
-export function OnboardingScreen() {
-  return <PlaceholderScreen title="Onboarding" subtitle="Carousel — UI pending" />;
-}
+export { SplashScreen } from './auth/SplashScreen';
+export { OnboardingScreen } from './auth/OnboardingScreen';
+export { SignInScreen } from './auth/SignInScreen';
+export { SignUpStep1Screen } from './auth/SignUpStep1Screen';
+export { SignUpStep2Screen } from './auth/SignUpStep2Screen';
+export { AccountCreatedScreen } from './auth/AccountCreatedScreen';
+export { ForgotPasswordScreen, ResetPasswordScreen } from './auth/ForgotPasswordScreens';
 
-export function SignInScreen() {
-  return <PlaceholderScreen title="Sign In" />;
-}
-
-export function SignUpStep1Screen() {
-  return <PlaceholderScreen title="Sign Up — Step 1" />;
-}
-
-export function SignUpStep2Screen() {
-  return <PlaceholderScreen title="Sign Up — Step 2" />;
-}
-
-export function AccountCreatedScreen() {
-  return <PlaceholderScreen title="Account Created" />;
-}
-
-export function ForgotPasswordScreen() {
-  return <PlaceholderScreen title="Forgot Password" />;
-}
-
-export function ResetPasswordScreen() {
-  return <PlaceholderScreen title="Reset Password" />;
-}
-
-export function HomeDashboardScreen() {
-  return <PlaceholderScreen title="Home Dashboard" />;
-}
+export { HomeDashboardScreen } from './home/HomeDashboardScreen';
 
 export function VerificationInProgressScreen() {
   return <PlaceholderScreen title="Verification In Progress" />;

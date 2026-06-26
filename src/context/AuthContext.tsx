@@ -1,17 +1,10 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { queryClient } from '../hooks/queryClient';
 import { authService, LoginPayload, RegisterPayload } from '../services/authService';
 import { tokenStorage } from '../services/tokenStorage';
 import type { User } from '../types/models';
 
-export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated';
+export type AuthStatus = 'loading' | 'unauthenticated' | 'account_created' | 'authenticated';
 
 interface AuthContextValue {
   status: AuthStatus;
@@ -19,6 +12,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   signIn: (payload: LoginPayload) => Promise<void>;
   signUp: (payload: RegisterPayload) => Promise<void>;
+  completeRegistration: () => void;
   signOut: () => Promise<void>;
   refreshUser: (user: User) => Promise<void>;
 }
@@ -62,6 +56,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signUp = useCallback(async (payload: RegisterPayload) => {
     const session = await authService.register(payload);
     setUser(session.user);
+    setStatus('account_created');
+  }, []);
+
+  const completeRegistration = useCallback(() => {
     setStatus('authenticated');
   }, []);
 
@@ -84,10 +82,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isAuthenticated: status === 'authenticated',
       signIn,
       signUp,
+      completeRegistration,
       signOut,
       refreshUser,
     }),
-    [status, user, signIn, signUp, signOut, refreshUser]
+    [status, user, signIn, signUp, completeRegistration, signOut, refreshUser]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

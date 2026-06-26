@@ -8,10 +8,11 @@ export type AccountStatus =
 
 export type BusinessType =
   | 'retail'
+  | 'wholesale'
   | 'services'
   | 'agriculture'
   | 'manufacturing'
-  | 'transport'
+  | 'technology'
   | 'hospitality'
   | 'other';
 

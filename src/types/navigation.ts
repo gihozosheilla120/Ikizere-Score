@@ -2,10 +2,16 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { ROUTES } from '../constants/routes';
 
 export type AuthStackParamList = {
+  [ROUTES.SPLASH]: undefined;
   [ROUTES.ONBOARDING]: undefined;
   [ROUTES.SIGN_IN]: undefined;
   [ROUTES.SIGN_UP_STEP_1]: undefined;
-  [ROUTES.SIGN_UP_STEP_2]: { fullName: string; phoneNumber: string; nationalId: string };
+  [ROUTES.SIGN_UP_STEP_2]: {
+    email: string;
+    fullName: string;
+    phoneNumber: string;
+    nationalId: string;
+  };
   [ROUTES.ACCOUNT_CREATED]: undefined;
   [ROUTES.FORGOT_PASSWORD]: undefined;
   [ROUTES.RESET_PASSWORD]: { token?: string };
