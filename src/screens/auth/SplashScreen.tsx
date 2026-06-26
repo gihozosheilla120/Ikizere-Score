@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ROUTES } from '../../constants/routes';
-import type { AuthStackParamList } from '../../types/navigation';
+import type { AuthScreenProps } from '../../types/navigation';
 import { colors, spacing } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import { BrandLogo } from '../../components/auth';
 import { tokenStorage } from '../../services/tokenStorage';
 
-type Props = NativeStackScreenProps<AuthStackParamList, typeof ROUTES.SPLASH>;
+type Props = AuthScreenProps<typeof ROUTES.SPLASH>;
 
 const SPLASH_DURATION_MS = 2000;
 

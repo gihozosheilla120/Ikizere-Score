@@ -2,15 +2,14 @@ import React from 'react';
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ROUTES } from '../../constants/routes';
-import type { AuthStackParamList } from '../../types/navigation';
+import type { AuthScreenProps } from '../../types/navigation';
 import { colors, spacing, borderRadius, shadows } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import { AuthPrimaryButton } from '../../components/auth';
 import { useAuth } from '../../context';
 
-type Props = NativeStackScreenProps<AuthStackParamList, typeof ROUTES.ACCOUNT_CREATED>;
+type Props = AuthScreenProps<typeof ROUTES.ACCOUNT_CREATED>;
 
 export function AccountCreatedScreen(_props: Props) {
   const insets = useSafeAreaInsets();

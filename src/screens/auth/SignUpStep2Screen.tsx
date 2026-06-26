@@ -7,9 +7,9 @@ import {
   Platform,
   Pressable,
 } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ROUTES } from '../../constants/routes';
-import type { AuthStackParamList } from '../../types/navigation';
+import { authNavigation } from '../../navigation/navigationActions';
+import type { AuthScreenProps } from '../../types/navigation';
 import type { BusinessType } from '../../types/models';
 import { colors, spacing, borderRadius } from '../../theme';
 import { Text } from '../../components/ui/Text';
@@ -29,7 +29,7 @@ import {
   validateSignUpStep2,
 } from '../../utils/validation/authValidation';
 
-type Props = NativeStackScreenProps<AuthStackParamList, typeof ROUTES.SIGN_UP_STEP_2>;
+type Props = AuthScreenProps<typeof ROUTES.SIGN_UP_STEP_2>;
 
 export function SignUpStep2Screen({ navigation, route }: Props) {
   const registerMutation = useRegisterMutation();
@@ -142,7 +142,7 @@ export function SignUpStep2Screen({ navigation, route }: Props) {
             style={styles.submit}
           />
 
-          <Pressable onPress={() => navigation.navigate(ROUTES.SIGN_IN)} style={styles.footer}>
+          <Pressable onPress={() => authNavigation.toSignIn(navigation)} style={styles.footer}>
             <Text variant="bodySmall" color={colors.textSecondary} align="center">
               Already Have An Account?{' '}
               <Text variant="bodySmall" color={colors.primary}>

@@ -6,3 +6,13 @@ export { LoansStackNavigator } from './LoansStackNavigator';
 export { ProfileStackNavigator } from './ProfileStackNavigator';
 export { MainTabNavigator } from './MainTabNavigator';
 export { RootNavigator } from './RootNavigator';
+export { tabNavigation, authNavigation } from './navigationActions';
+export {
+  useMainTabNavigation,
+  useHomeDashboardNavigation,
+  useRecordsListNavigation,
+  useAddRecordNavigation,
+  useScoreInsightsNavigation,
+  useLoanMarketplaceNavigation,
+  useAuthNavigation,
+} from './hooks';

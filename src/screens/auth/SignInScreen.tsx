@@ -7,9 +7,9 @@ import {
   Platform,
   Pressable,
 } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ROUTES } from '../../constants/routes';
-import type { AuthStackParamList } from '../../types/navigation';
+import { authNavigation } from '../../navigation/navigationActions';
+import type { AuthScreenProps } from '../../types/navigation';
 import { colors, spacing, borderRadius } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import {
@@ -28,7 +28,7 @@ import {
   validateSignInForm,
 } from '../../utils/validation/authValidation';
 
-type Props = NativeStackScreenProps<AuthStackParamList, typeof ROUTES.SIGN_IN>;
+type Props = AuthScreenProps<typeof ROUTES.SIGN_IN>;
 
 export function SignInScreen({ navigation }: Props) {
   const loginMutation = useLoginMutation();
@@ -93,7 +93,7 @@ export function SignInScreen({ navigation }: Props) {
           />
 
           <Pressable
-            onPress={() => navigation.navigate(ROUTES.FORGOT_PASSWORD)}
+            onPress={() => authNavigation.toForgotPassword(navigation)}
             style={styles.forgot}
           >
             <Text variant="bodySmall" color={colors.primary}>
@@ -111,7 +111,7 @@ export function SignInScreen({ navigation }: Props) {
           <OrDivider />
           <SocialAuthButtons />
 
-          <Pressable onPress={() => navigation.navigate(ROUTES.SIGN_UP_STEP_1)} style={styles.footer}>
+          <Pressable onPress={() => authNavigation.toSignUpStep1(navigation)} style={styles.footer}>
             <Text variant="bodySmall" color={colors.textSecondary} align="center">
               Don&apos;t Have An Account?{' '}
               <Text variant="bodySmall" color={colors.primary}>

@@ -7,11 +7,10 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { ROUTES } from '../../constants/routes';
 import { ONBOARDING_SLIDES } from '../../constants/auth';
-import type { AuthStackParamList } from '../../types/navigation';
+import type { AuthScreenProps } from '../../types/navigation';
 import { colors, spacing, borderRadius, shadows } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import {
@@ -22,7 +21,7 @@ import {
 import { tokenStorage } from '../../services/tokenStorage';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type Props = NativeStackScreenProps<AuthStackParamList, typeof ROUTES.ONBOARDING>;
+type Props = AuthScreenProps<typeof ROUTES.ONBOARDING>;
 
 const { width } = Dimensions.get('window');
 

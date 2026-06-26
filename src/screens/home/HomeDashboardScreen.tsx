@@ -5,11 +5,8 @@ import {
   RefreshControl,
   View,
 } from 'react-native';
-import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ROUTES } from '../../constants/routes';
-import type { HomeStackParamList, MainTabParamList } from '../../types/navigation';
+import { tabNavigation } from '../../navigation/navigationActions';
+import { useHomeDashboardNavigation } from '../../navigation/hooks';
 import { colors, spacing } from '../../theme';
 import { useAuth } from '../../context';
 import { useDashboardData } from '../../hooks/useDashboardData';
@@ -27,13 +24,8 @@ import {
 } from '../../components/dashboard';
 import { Button, Card, EmptyState, Text } from '../../components/ui';
 
-type HomeDashboardNav = CompositeNavigationProp<
-  NativeStackNavigationProp<HomeStackParamList, typeof ROUTES.HOME_DASHBOARD>,
-  BottomTabNavigationProp<MainTabParamList>
->;
-
 export function HomeDashboardScreen() {
-  const navigation = useNavigation<HomeDashboardNav>();
+  const navigation = useHomeDashboardNavigation();
   const { user } = useAuth();
   const {
     summary,
@@ -59,19 +51,19 @@ export function HomeDashboardScreen() {
       insights.totalSavings === 0);
 
   const goToAddRecord = () => {
-    navigation.navigate(ROUTES.RECORDS_TAB, { screen: ROUTES.ADD_RECORD, params: {} });
+    tabNavigation.toAddRecord(navigation);
   };
 
   const goToLoans = () => {
-    navigation.navigate(ROUTES.LOANS_TAB, { screen: ROUTES.LOAN_MARKETPLACE });
+    tabNavigation.toLoanMarketplace(navigation);
   };
 
   const goToScoreInsights = () => {
-    navigation.navigate(ROUTES.SCORE_TAB, { screen: ROUTES.SCORE_INSIGHTS });
+    tabNavigation.toScoreInsights(navigation);
   };
 
   const goToRecordsList = () => {
-    navigation.navigate(ROUTES.RECORDS_TAB, { screen: ROUTES.RECORDS_LIST });
+    tabNavigation.toRecordsList(navigation);
   };
 
   const quickActions = [

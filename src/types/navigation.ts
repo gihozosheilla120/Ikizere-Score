@@ -1,20 +1,58 @@
-import { NavigatorScreenParams } from '@react-navigation/native';
+import type { NavigatorScreenParams, CompositeNavigationProp } from '@react-navigation/native';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ROUTES } from '../constants/routes';
+import type { RecordType } from './models';
+
+// ---------------------------------------------------------------------------
+// Route param payloads
+// ---------------------------------------------------------------------------
+
+export type SignUpStep2Params = {
+  email: string;
+  fullName: string;
+  phoneNumber: string;
+  nationalId: string;
+};
+
+export type AddRecordParams = {
+  type?: RecordType;
+};
+
+export type RecordDetailParams = {
+  recordId: string;
+};
+
+export type RecordSavedParams = {
+  recordId: string;
+};
+
+export type ResetPasswordParams = {
+  token?: string;
+};
+
+export type LoanProductParams = {
+  productId: string;
+};
+
+export type LoanApplicationParams = {
+  applicationId: string;
+};
+
+// ---------------------------------------------------------------------------
+// Stack param lists
+// ---------------------------------------------------------------------------
 
 export type AuthStackParamList = {
   [ROUTES.SPLASH]: undefined;
   [ROUTES.ONBOARDING]: undefined;
   [ROUTES.SIGN_IN]: undefined;
   [ROUTES.SIGN_UP_STEP_1]: undefined;
-  [ROUTES.SIGN_UP_STEP_2]: {
-    email: string;
-    fullName: string;
-    phoneNumber: string;
-    nationalId: string;
-  };
+  [ROUTES.SIGN_UP_STEP_2]: SignUpStep2Params;
   [ROUTES.ACCOUNT_CREATED]: undefined;
   [ROUTES.FORGOT_PASSWORD]: undefined;
-  [ROUTES.RESET_PASSWORD]: { token?: string };
+  [ROUTES.RESET_PASSWORD]: ResetPasswordParams | undefined;
 };
 
 export type HomeStackParamList = {
@@ -24,9 +62,9 @@ export type HomeStackParamList = {
 
 export type RecordsStackParamList = {
   [ROUTES.RECORDS_LIST]: undefined;
-  [ROUTES.ADD_RECORD]: { type?: 'income' | 'expense' | 'savings' };
-  [ROUTES.RECORD_SAVED]: { recordId: string };
-  [ROUTES.RECORD_DETAIL]: { recordId: string };
+  [ROUTES.ADD_RECORD]: AddRecordParams | undefined;
+  [ROUTES.RECORD_SAVED]: RecordSavedParams;
+  [ROUTES.RECORD_DETAIL]: RecordDetailParams;
 };
 
 export type ScoreStackParamList = {
@@ -36,10 +74,10 @@ export type ScoreStackParamList = {
 
 export type LoansStackParamList = {
   [ROUTES.LOAN_MARKETPLACE]: undefined;
-  [ROUTES.LOAN_PRODUCT_DETAIL]: { productId: string };
-  [ROUTES.LOAN_APPLY]: { productId: string };
-  [ROUTES.APPLICATION_RECEIVED]: { applicationId: string };
-  [ROUTES.LOAN_STATUS]: { applicationId: string };
+  [ROUTES.LOAN_PRODUCT_DETAIL]: LoanProductParams;
+  [ROUTES.LOAN_APPLY]: LoanProductParams;
+  [ROUTES.APPLICATION_RECEIVED]: LoanApplicationParams;
+  [ROUTES.LOAN_STATUS]: LoanApplicationParams;
   [ROUTES.LOAN_APPLICATIONS_LIST]: undefined;
 };
 
@@ -53,6 +91,10 @@ export type ProfileStackParamList = {
   [ROUTES.HELP_CENTER]: undefined;
 };
 
+// ---------------------------------------------------------------------------
+// Tab + root param lists
+// ---------------------------------------------------------------------------
+
 export type MainTabParamList = {
   [ROUTES.HOME_TAB]: NavigatorScreenParams<HomeStackParamList>;
   [ROUTES.RECORDS_TAB]: NavigatorScreenParams<RecordsStackParamList>;
@@ -65,6 +107,88 @@ export type RootStackParamList = {
   [ROUTES.AUTH]: NavigatorScreenParams<AuthStackParamList>;
   [ROUTES.MAIN]: NavigatorScreenParams<MainTabParamList>;
 };
+
+// ---------------------------------------------------------------------------
+// Nested navigation helpers (tab + stack composite props)
+// ---------------------------------------------------------------------------
+
+export type HomeDashboardNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<HomeStackParamList, typeof ROUTES.HOME_DASHBOARD>,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
+export type RecordsListNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<RecordsStackParamList, typeof ROUTES.RECORDS_LIST>,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
+export type AddRecordNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<RecordsStackParamList, typeof ROUTES.ADD_RECORD>,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
+export type ScoreInsightsNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<ScoreStackParamList, typeof ROUTES.SCORE_INSIGHTS>,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
+export type LoanMarketplaceNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<LoansStackParamList, typeof ROUTES.LOAN_MARKETPLACE>,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
+export type MainTabNavigationProp = BottomTabNavigationProp<MainTabParamList>;
+
+export type AuthNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
+
+/**
+ * Any screen nested under MainTabNavigator that may navigate across tabs.
+ */
+export type AppTabNavigable =
+  | MainTabNavigationProp
+  | HomeDashboardNavigationProp
+  | RecordsListNavigationProp
+  | AddRecordNavigationProp
+  | ScoreInsightsNavigationProp
+  | LoanMarketplaceNavigationProp;
+
+// ---------------------------------------------------------------------------
+// Screen props aliases
+// ---------------------------------------------------------------------------
+
+export type AuthScreenProps<T extends keyof AuthStackParamList> = NativeStackScreenProps<
+  AuthStackParamList,
+  T
+>;
+
+export type HomeScreenProps<T extends keyof HomeStackParamList> = NativeStackScreenProps<
+  HomeStackParamList,
+  T
+>;
+
+export type RecordsScreenProps<T extends keyof RecordsStackParamList> = NativeStackScreenProps<
+  RecordsStackParamList,
+  T
+>;
+
+export type ScoreScreenProps<T extends keyof ScoreStackParamList> = NativeStackScreenProps<
+  ScoreStackParamList,
+  T
+>;
+
+export type LoansScreenProps<T extends keyof LoansStackParamList> = NativeStackScreenProps<
+  LoansStackParamList,
+  T
+>;
+
+export type ProfileScreenProps<T extends keyof ProfileStackParamList> = NativeStackScreenProps<
+  ProfileStackParamList,
+  T
+>;
+
+// ---------------------------------------------------------------------------
+// Global augmentation (default useNavigation typing)
+// ---------------------------------------------------------------------------
 
 declare global {
   namespace ReactNavigation {
