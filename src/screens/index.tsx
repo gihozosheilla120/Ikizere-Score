@@ -14,21 +14,11 @@ export function VerificationInProgressScreen() {
   return <PlaceholderScreen title="Verification In Progress" />;
 }
 
-export function RecordsListScreen() {
-  return <PlaceholderScreen title="Records List" />;
-}
-
-export function AddRecordScreen() {
-  return <PlaceholderScreen title="Add Record" />;
-}
-
-export function RecordSavedScreen() {
-  return <PlaceholderScreen title="Record Saved" />;
-}
-
-export function RecordDetailScreen() {
-  return <PlaceholderScreen title="Record Detail" />;
-}
+export { RecordsListScreen } from './records/RecordsListScreen';
+export { AddRecordScreen } from './records/AddRecordScreen';
+export { RecordDetailScreen } from './records/RecordDetailScreen';
+export { RecordSavedScreen } from './records/RecordSavedScreen';
+export { MonthlyInsightsScreen } from './records/MonthlyInsightsScreen';
 
 export function ScoreReadinessScreen() {
   return <PlaceholderScreen title="Loan Readiness" />;

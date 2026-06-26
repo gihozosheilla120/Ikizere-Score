@@ -159,6 +159,48 @@ export interface FinancialRecord {
 export interface RecordCategory {
   _id: string;
   slug: string;
-  label: string;
+  name: string;
   type: RecordType;
+}
+
+export interface CreateRecordPayload {
+  type: RecordType;
+  category: string;
+  amount: number;
+  currency: Currency;
+  transactionDate: string;
+  description?: string;
+  source?: string;
+  tags?: string[];
+}
+
+export interface UpdateRecordPayload {
+  type?: RecordType;
+  category?: string;
+  amount?: number;
+  currency?: Currency;
+  transactionDate?: string;
+  description?: string;
+  tags?: string[];
+}
+
+export interface RecordsListFilters {
+  page?: number;
+  limit?: number;
+  type?: RecordType;
+  search?: string;
+  fromDate?: string;
+  toDate?: string;
+  sortBy?: 'transactionDate' | 'amount' | 'createdAt';
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface MonthlyInsights {
+  year: number;
+  month: number;
+  currency: string | null;
+  totalIncome: number;
+  totalExpenses: number;
+  totalSavings: number;
+  netCashFlow: number;
 }

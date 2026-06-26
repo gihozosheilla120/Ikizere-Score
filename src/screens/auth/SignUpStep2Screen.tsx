@@ -67,7 +67,7 @@ export function SignUpStep2Screen({ navigation, route }: Props) {
         acceptTerms: form.acceptTerms,
       },
       {
-        onSuccess: () => navigation.replace(ROUTES.ACCOUNT_CREATED),
+        onSuccess: () => authNavigation.toAccountCreated(navigation),
         onError: (error) => setApiError(getErrorMessage(error, 'Registration failed')),
       }
     );

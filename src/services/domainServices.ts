@@ -1,22 +1,26 @@
 import { API_ENDPOINTS } from '../constants/api';
 import { apiGet, apiPost, apiPut, apiPatch, apiDelete } from './apiClient';
 import type {
+  CreateRecordPayload,
   FinancialRecord,
   LoanApplication,
   LoanApplicationEvent,
   LoanProductCard,
+  MonthlyInsights,
   RecordCategory,
   RecordType,
+  RecordsListFilters,
   ScoreBreakdownFactor,
   ScoreSummary,
+  UpdateRecordPayload,
 } from '../types/models';
 import type { PaginationMeta } from '../types/api';
 
 export const recordsService = {
-  list(params?: Record<string, unknown>) {
+  list(params?: RecordsListFilters) {
     return apiGet<{ records: FinancialRecord[] } & PaginationMeta>(
       API_ENDPOINTS.records.list,
-      params
+      params as Record<string, unknown>
     );
   },
 
@@ -24,11 +28,11 @@ export const recordsService = {
     return apiGet<{ record: FinancialRecord }>(API_ENDPOINTS.records.byId(id));
   },
 
-  create(payload: Record<string, unknown>) {
+  create(payload: CreateRecordPayload) {
     return apiPost<{ record: FinancialRecord }>(API_ENDPOINTS.records.list, payload);
   },
 
-  update(id: string, payload: Record<string, unknown>) {
+  update(id: string, payload: UpdateRecordPayload) {
     return apiPatch<{ record: FinancialRecord }>(API_ENDPOINTS.records.byId(id), payload);
   },
 
@@ -43,15 +47,7 @@ export const recordsService = {
   },
 
   getMonthlyInsights(params: { year: number; month: number; currency?: string }) {
-    return apiGet<{
-      year: number;
-      month: number;
-      currency: string | null;
-      totalIncome: number;
-      totalExpenses: number;
-      totalSavings: number;
-      netCashFlow: number;
-    }>(API_ENDPOINTS.records.monthlyInsights, params);
+    return apiGet<MonthlyInsights>(API_ENDPOINTS.records.monthlyInsights, params);
   },
 };
 

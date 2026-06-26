@@ -1,4 +1,4 @@
-import type { NavigatorScreenParams, CompositeNavigationProp } from '@react-navigation/native';
+import type { NavigatorScreenParams, CompositeNavigationProp, NavigationAction } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -139,18 +139,15 @@ export type LoanMarketplaceNavigationProp = CompositeNavigationProp<
 
 export type MainTabNavigationProp = BottomTabNavigationProp<MainTabParamList>;
 
-export type AuthNavigationProp = NativeStackNavigationProp<AuthStackParamList>;
+/** Any navigator that can dispatch cross-tab actions via CommonActions. */
+export type NavDispatchProp = {
+  dispatch(action: NavigationAction): void;
+};
 
-/**
- * Any screen nested under MainTabNavigator that may navigate across tabs.
- */
-export type AppTabNavigable =
-  | MainTabNavigationProp
-  | HomeDashboardNavigationProp
-  | RecordsListNavigationProp
-  | AddRecordNavigationProp
-  | ScoreInsightsNavigationProp
-  | LoanMarketplaceNavigationProp;
+export type AuthNavigationProp = Pick<
+  NativeStackNavigationProp<AuthStackParamList>,
+  'navigate' | 'replace' | 'goBack'
+>;
 
 // ---------------------------------------------------------------------------
 // Screen props aliases

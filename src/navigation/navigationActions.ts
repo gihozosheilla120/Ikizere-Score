@@ -1,5 +1,4 @@
 import { CommonActions } from '@react-navigation/native';
-import type { NavigationAction } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ROUTES } from '../constants/routes';
 import type {
@@ -8,13 +7,12 @@ import type {
   LoanApplicationParams,
   LoanProductParams,
   MainTabParamList,
+  NavDispatchProp,
 } from '../types/navigation';
 import type { RecordType } from '../types/models';
 
 /** Any navigation object that can dispatch actions (stack, tab, or composite). */
-type NavDispatch = {
-  dispatch(action: NavigationAction): void;
-};
+type NavDispatch = NavDispatchProp;
 
 type AuthNavigation = Pick<
   NativeStackNavigationProp<AuthStackParamList>,
