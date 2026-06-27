@@ -2,8 +2,8 @@ import type { NavigatorScreenParams, CompositeNavigationProp, NavigationAction }
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ROUTES } from '../constants/routes';
-import type { RecordType } from './models';
+import { ROUTES } from '@/constants/routes';
+import type { RecordType } from '@/types/models';
 
 // ---------------------------------------------------------------------------
 // Route param payloads

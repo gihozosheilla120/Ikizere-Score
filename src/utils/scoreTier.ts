@@ -1,5 +1,5 @@
 import { colors } from '../theme';
-import type { LoanReadinessRating, ScoreRating } from '../types/models';
+import type { LoanReadinessRating, ScoreRating } from '@/types/models';
 
 export type ScoreTier = 'gold' | 'silver' | 'bronze';
 

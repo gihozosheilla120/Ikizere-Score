@@ -1,4 +1,4 @@
-import type { RecordType, Currency } from '../types/models';
+import type { RecordType, Currency } from '@/types/models';
 
 export type RecordFilterTab = 'all' | RecordType;
 

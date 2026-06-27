@@ -5,13 +5,22 @@
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "@/types": ["src/types/index"],
+      "@/types/models": ["src/types/models"],
+      "@/types/navigation": ["src/types/navigation"],
+      "@/types/api": ["src/types/api"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": [
+    "node_modules",
+    "src/modules/**",
+    "src/routes/**",
+    "src/queues/**",
+    "src/seeds/**",
+    "src/models/**",
+    "src/config/**",
+    "src/**/*.js"
   ]
 }

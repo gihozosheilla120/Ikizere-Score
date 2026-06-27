@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius } from '../../theme';
 import { Text, Card, Button } from '../ui';
 import { getReadinessQuote } from '../../utils/scoreTier';
-import type { LoanReadinessRating } from '../../types/models';
+import type { LoanReadinessRating } from '@/types/models';
 
 interface LoanReadinessCardProps {
   percent: number;

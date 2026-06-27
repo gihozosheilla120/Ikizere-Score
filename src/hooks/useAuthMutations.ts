@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../context';
-import type { LoginPayload, RegisterPayload } from '../services/authService';
+import type { LoginPayload, RegisterPayload } from '@/types/models';
 
 export function useLoginMutation() {
   const { signIn } = useAuth();

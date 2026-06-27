@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORAGE_KEYS } from '../constants/config';
-import type { AuthTokens, User } from '../types/models';
+import type { AuthTokens, User } from '@/types/models';
 
 export const tokenStorage = {
   async getAccessToken(): Promise<string | null> {

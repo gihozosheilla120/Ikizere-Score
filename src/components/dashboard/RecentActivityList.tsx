@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, spacing, borderRadius } from '../../theme';
 import { Text, Card, Divider } from '../ui';
 import { formatCurrency, formatRecordDate, formatSignedCurrency } from '../../utils/formatters';
-import type { FinancialRecord } from '../../types/models';
+import type { FinancialRecord } from '@/types/models';
 
 interface RecentActivityListProps {
   records: FinancialRecord[];

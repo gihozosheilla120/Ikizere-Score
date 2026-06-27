@@ -23,7 +23,7 @@ import {
 import { useAuth } from '../../context';
 import { useDebouncedValue, useRecordsInfiniteQuery } from '../../hooks';
 import type { RecordFilterTab } from '../../constants/records';
-import type { RecordsScreenProps } from '../../types/navigation';
+import type { RecordsScreenProps } from '@/types/navigation';
 import { getErrorMessage } from '../../utils/errors';
 import { groupRecordsByDate } from '../../utils/records';
 import { MonthlyInsightsScreen } from './MonthlyInsightsScreen';

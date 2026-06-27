@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { API_BASE_URL, API_TIMEOUT_MS } from '../constants/config';
 import { API_ENDPOINTS } from '../constants/api';
-import { ApiError, ApiErrorResponse, ApiSuccessResponse } from '../types/api';
+import { ApiError, ApiErrorResponse, ApiSuccessResponse } from '@/types/api';
 import { tokenStorage } from './tokenStorage';
 
 type RetryConfig = InternalAxiosRequestConfig & { _retry?: boolean };
@@ -81,7 +81,7 @@ apiClient.interceptors.response.use(
   }
 );
 
-export async function apiGet<T>(url: string, params?: Record<string, unknown>): Promise<T> {
+export async function apiGet<T>(url: string, params?: object): Promise<T> {
   const response = await apiClient.get<ApiSuccessResponse<T>>(url, { params });
   return response.data.data as T;
 }

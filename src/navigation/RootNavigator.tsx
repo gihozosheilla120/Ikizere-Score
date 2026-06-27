@@ -3,7 +3,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ROUTES } from '../constants/routes';
-import type { RootStackParamList } from '../types/navigation';
+import type { RootStackParamList } from '@/types/navigation';
 import { useAuth } from '../context';
 import { colors } from '../theme';
 import { AuthNavigator } from './AuthNavigator';

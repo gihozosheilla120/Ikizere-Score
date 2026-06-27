@@ -6,7 +6,7 @@ import { Text, Card, Button, Badge } from '../ui';
 import { ScoreGauge } from './ScoreGauge';
 import { getScoreTier, getRatingBadgeVariant, SCORE_TIER_META } from '../../utils/scoreTier';
 import { formatRatingLabel } from '../../utils/formatters';
-import type { ScoreSummary } from '../../types/models';
+import type { ScoreSummary } from '@/types/models';
 
 interface ScoreSummaryCardProps {
   summary: ScoreSummary;

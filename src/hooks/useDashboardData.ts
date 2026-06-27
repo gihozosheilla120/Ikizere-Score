@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { queryKeys } from './queryKeys';
 import { recordsService, scoreService } from '../services';
-import { ApiError } from '../types/api';
+import { ApiError } from '@/types/api';
 
 function getCurrentMonthParams() {
   const now = new Date();

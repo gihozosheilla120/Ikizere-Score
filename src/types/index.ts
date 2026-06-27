@@ -1,3 +1,80 @@
 export * from './api';
 export * from './models';
 export * from './navigation';
+
+// Commonly used model types (explicit re-exports for IDE/discoverability)
+export type {
+  AccountStatus,
+  AuthSession,
+  AuthTokens,
+  BusinessType,
+  CreateLoanApplicationPayload,
+  CreateRecordPayload,
+  Currency,
+  FinancialRecord,
+  LoanApplication,
+  LoanApplicationEvent,
+  LoanApplicationStatus,
+  LoanEligibilityRules,
+  LoanLender,
+  LoanMarketplaceFilters,
+  LoanMarketplaceResponse,
+  LoanProductCard,
+  LoanProductDetail,
+  LoanPurpose,
+  LoanReadinessRating,
+  LoanUserContext,
+  LoginPayload,
+  MonthlyInsights,
+  ReadinessSnapshot,
+  RecordCategory,
+  RecordType,
+  RecordsListFilters,
+  RegisterPayload,
+  ResetPasswordPayload,
+  ScoreBreakdown,
+  ScoreBreakdownFactor,
+  ScoreBreakdownMap,
+  ScoreHistoryEntry,
+  ScoreRating,
+  ScoreSummary,
+  UpdateRecordPayload,
+  User,
+  VerificationStatus,
+} from './models';
+
+export type {
+  AddRecordParams,
+  AuthNavigationProp,
+  AuthScreenProps,
+  AuthStackParamList,
+  HomeDashboardNavigationProp,
+  HomeScreenProps,
+  HomeStackParamList,
+  LoanApplicationParams,
+  LoanProductParams,
+  LoansScreenProps,
+  LoansStackParamList,
+  MainTabNavigationProp,
+  MainTabParamList,
+  NavDispatchProp,
+  ProfileScreenProps,
+  ProfileStackParamList,
+  RecordDetailParams,
+  RecordSavedParams,
+  RecordsScreenProps,
+  RecordsStackParamList,
+  ResetPasswordParams,
+  RootStackParamList,
+  ScoreScreenProps,
+  ScoreStackParamList,
+  SignUpStep2Params,
+} from './navigation';
+
+export type {
+  ApiErrorResponse,
+  ApiSuccessResponse,
+  PaginationMeta,
+} from './api';
+
+export { ApiError } from './api';

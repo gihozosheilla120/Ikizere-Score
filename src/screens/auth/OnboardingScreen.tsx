@@ -10,7 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { ROUTES } from '../../constants/routes';
 import { ONBOARDING_SLIDES } from '../../constants/auth';
-import type { AuthScreenProps } from '../../types/navigation';
+import type { AuthScreenProps } from '@/types/navigation';
 import { colors, spacing, borderRadius, shadows } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import {

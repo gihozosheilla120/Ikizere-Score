@@ -1,4 +1,4 @@
-import type { Currency, RecordType } from '../../types/models';
+import type { Currency, RecordType } from '@/types/models';
 
 export interface CreateRecordForm {
   type: RecordType;

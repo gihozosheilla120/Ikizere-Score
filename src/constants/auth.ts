@@ -1,4 +1,4 @@
-import type { BusinessType } from '../types/models';
+import type { BusinessType } from '@/types/models';
 
 export const BUSINESS_TYPE_OPTIONS: { label: string; value: BusinessType }[] = [
   { label: 'Retail', value: 'retail' },

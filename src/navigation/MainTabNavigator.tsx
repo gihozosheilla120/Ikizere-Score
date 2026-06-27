@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { ROUTES } from '../constants/routes';
-import type { MainTabParamList } from '../types/navigation';
+import type { MainTabParamList } from '@/types/navigation';
 import { colors, layout } from '../theme';
 import { defaultTabScreenOptions } from './screenOptions';
 import { HomeStackNavigator } from './HomeStackNavigator';

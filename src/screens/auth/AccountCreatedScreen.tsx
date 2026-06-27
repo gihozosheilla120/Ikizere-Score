@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ROUTES } from '../../constants/routes';
-import type { AuthScreenProps } from '../../types/navigation';
+import type { AuthScreenProps } from '@/types/navigation';
 import { colors, spacing, borderRadius, shadows } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import { AuthPrimaryButton } from '../../components/auth';

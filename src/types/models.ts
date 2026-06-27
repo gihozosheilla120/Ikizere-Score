@@ -74,6 +74,28 @@ export interface User {
   updatedAt: string;
 }
 
+export interface RegisterPayload {
+  email: string;
+  fullName: string;
+  phoneNumber: string;
+  nationalId: string;
+  businessType: BusinessType;
+  password: string;
+  confirmPassword: string;
+  acceptTerms: boolean;
+}
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface ResetPasswordPayload {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export interface AuthSession {
   user: User;
   tokens: AuthTokens;
@@ -98,6 +120,43 @@ export interface ScoreBreakdownFactor {
   weightedContribution: number;
 }
 
+export interface ScoreBreakdownMap {
+  savingsBehaviour: number;
+  incomeStability: number;
+  paymentConsistency: number;
+  businessActivity: number;
+  creditHistory: number;
+}
+
+export interface ScoreBreakdown {
+  currentScore: number;
+  rating: ScoreRating;
+  factors: ScoreBreakdownFactor[];
+  breakdown: Partial<ScoreBreakdownMap>;
+  lastCalculatedAt: string | null;
+}
+
+export interface ScoreHistoryEntry {
+  score: number;
+  rating: ScoreRating;
+  calculatedAt: string;
+}
+
+export interface LoanEligibilityRules {
+  minLoanReadinessPercent?: number;
+  requiresVerification?: boolean;
+  minLoanReadinessRating?: LoanReadinessRating;
+  notes?: string;
+}
+
+export interface LoanLender {
+  id: string;
+  name: string;
+  logoUrl: string | null;
+  verified: boolean;
+  description?: string;
+}
+
 export interface LoanProductCard {
   id: string;
   lenderId: string;
@@ -114,6 +173,42 @@ export interface LoanProductCard {
   matchPercent: number;
   isEligible: boolean;
   eligibilityReasons: string[];
+  eligibilityRules?: LoanEligibilityRules;
+}
+
+export interface LoanProductDetail extends LoanProductCard {
+  lender: LoanLender | null;
+}
+
+export interface LoanUserContext {
+  currentScore: number;
+  loanReadinessPercent: number;
+  loanReadinessRating: LoanReadinessRating;
+  monthlyRevenue: number;
+}
+
+export interface LoanMarketplaceResponse {
+  products: LoanProductCard[];
+  userContext: LoanUserContext;
+}
+
+export interface LoanMarketplaceFilters {
+  amount?: number;
+  term?: number;
+  currency?: Currency;
+  search?: string;
+}
+
+export interface CreateLoanApplicationPayload {
+  loanProductId: string;
+  requestedAmount: number;
+  requestedTermMonths: number;
+  purpose: LoanPurpose;
+}
+
+export interface ReadinessSnapshot {
+  percent: number;
+  rating: LoanReadinessRating;
 }
 
 export interface LoanApplication {
@@ -125,7 +220,7 @@ export interface LoanApplication {
   purpose: LoanPurpose;
   monthlyRevenueSnapshot: number;
   ikizereScoreSnapshot: number;
-  readinessSnapshot: { percent: number; rating: string };
+  readinessSnapshot: ReadinessSnapshot;
   status: LoanApplicationStatus;
   rejectionReason: string | null;
   submittedAt: string | null;
@@ -198,7 +293,7 @@ export interface RecordsListFilters {
 export interface MonthlyInsights {
   year: number;
   month: number;
-  currency: string | null;
+  currency: Currency | null;
   totalIncome: number;
   totalExpenses: number;
   totalSavings: number;

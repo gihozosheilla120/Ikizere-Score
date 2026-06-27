@@ -23,8 +23,8 @@ import {
   useCreateRecordMutation,
   useRecordCategoriesQuery,
 } from '../../hooks';
-import type { RecordsScreenProps } from '../../types/navigation';
-import type { RecordType } from '../../types/models';
+import type { RecordsScreenProps } from '@/types/navigation';
+import type { RecordType } from '@/types/models';
 import {
   CreateRecordForm,
   formatInputDate,

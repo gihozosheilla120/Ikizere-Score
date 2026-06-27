@@ -27,8 +27,8 @@ import {
   useRecordQuery,
   useUpdateRecordMutation,
 } from '../../hooks';
-import type { RecordsScreenProps } from '../../types/navigation';
-import type { RecordType } from '../../types/models';
+import type { RecordsScreenProps } from '@/types/navigation';
+import type { RecordType } from '@/types/models';
 import { formatCurrency, formatRecordDate } from '../../utils/formatters';
 import {
   categoryLabel,
@@ -163,7 +163,10 @@ export function RecordDetailScreen({ navigation, route }: Props) {
           <Card style={styles.card}>
             <RecordTypeSelector
               value={form.type}
-              onChange={(type: RecordType) => updateField('type', type)}
+              onChange={(type: RecordType) => {
+                updateField('type', type);
+                updateField('category', '');
+              }}
             />
             <AmountInput
               value={form.amount}

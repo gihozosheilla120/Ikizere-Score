@@ -11,3 +11,9 @@ export {
   useUpdateRecordMutation,
   useDeleteRecordMutation,
 } from './useRecordsQueries';
+export {
+  useLoanMarketplaceQuery,
+  useEligibleProductsQuery,
+  useLoanProductQuery,
+} from './useLoansQueries';
+export { useScoreSummaryQuery, useScoreBreakdownQuery } from './useScoreQueries';

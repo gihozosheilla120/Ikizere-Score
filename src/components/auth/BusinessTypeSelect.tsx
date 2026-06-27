@@ -11,7 +11,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BUSINESS_TYPE_OPTIONS } from '../../constants/auth';
 import { colors, borderRadius, spacing } from '../../theme';
 import { Text } from '../ui/Text';
-import type { BusinessType } from '../../types/models';
+import type { BusinessType } from '@/types/models';
 
 interface BusinessTypeSelectProps {
   value: BusinessType | '';

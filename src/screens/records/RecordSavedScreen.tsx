@@ -7,7 +7,7 @@ import { colors, spacing, borderRadius } from '../../theme';
 import { Text, Button, Card, Badge } from '../../components/ui';
 import { RecordsScreenHeader } from '../../components/records';
 import { useRecordQuery } from '../../hooks';
-import type { RecordsScreenProps } from '../../types/navigation';
+import type { RecordsScreenProps } from '@/types/navigation';
 import { formatCurrency, formatRecordDate } from '../../utils/formatters';
 import { categoryLabel } from '../../utils/validation/recordValidation';
 import { ActivityIndicator } from 'react-native';

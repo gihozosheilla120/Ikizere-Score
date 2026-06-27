@@ -1,4 +1,4 @@
-import type { Currency } from '../types/models';
+import type { Currency } from '@/types/models';
 
 export function getGreeting(): string {
   const hour = new Date().getHours();

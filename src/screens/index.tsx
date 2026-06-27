@@ -20,21 +20,11 @@ export { RecordDetailScreen } from './records/RecordDetailScreen';
 export { RecordSavedScreen } from './records/RecordSavedScreen';
 export { MonthlyInsightsScreen } from './records/MonthlyInsightsScreen';
 
-export function ScoreReadinessScreen() {
-  return <PlaceholderScreen title="Loan Readiness" />;
-}
+export { ScoreReadinessScreen } from './score/ScoreReadinessScreen';
+export { ScoreInsightsScreen } from './score/ScoreInsightsScreen';
 
-export function ScoreInsightsScreen() {
-  return <PlaceholderScreen title="Score Insights" />;
-}
-
-export function LoanMarketplaceScreen() {
-  return <PlaceholderScreen title="Loan Marketplace" />;
-}
-
-export function LoanProductDetailScreen() {
-  return <PlaceholderScreen title="Loan Product Detail" />;
-}
+export { LoanMarketplaceScreen } from './loans/LoanMarketplaceScreen';
+export { LoanProductDetailScreen } from './loans/LoanProductDetailScreen';
 
 export function LoanApplyScreen() {
   return <PlaceholderScreen title="Loan Application" />;

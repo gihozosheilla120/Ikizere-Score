@@ -1,7 +1,7 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ROUTES } from '../constants/routes';
-import type { ScoreStackParamList } from '../types/navigation';
+import type { ScoreStackParamList } from '@/types/navigation';
 import { defaultStackScreenOptions } from './screenOptions';
 import { ScoreInsightsScreen, ScoreReadinessScreen } from '../screens';
 

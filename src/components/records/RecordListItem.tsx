@@ -6,7 +6,7 @@ import { Text } from '../ui';
 import { formatCurrency } from '../../utils/formatters';
 import { categoryLabel } from '../../utils/validation/recordValidation';
 import { RECORD_TYPE_META } from '../../constants/records';
-import type { FinancialRecord } from '../../types/models';
+import type { FinancialRecord } from '@/types/models';
 
 interface RecordListItemProps {
   record: FinancialRecord;

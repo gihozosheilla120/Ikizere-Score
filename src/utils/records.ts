@@ -1,4 +1,4 @@
-import type { FinancialRecord } from '../types/models';
+import type { FinancialRecord } from '@/types/models';
 
 export function getDateSectionKey(isoDate: string): string {
   const date = new Date(isoDate);

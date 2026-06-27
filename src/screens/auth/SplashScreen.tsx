@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ROUTES } from '../../constants/routes';
-import type { AuthScreenProps } from '../../types/navigation';
+import type { AuthScreenProps } from '@/types/navigation';
 import { colors, spacing } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import { BrandLogo } from '../../components/auth';

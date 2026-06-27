@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { ROUTES } from '../../constants/routes';
 import { authNavigation } from '../../navigation/navigationActions';
-import type { AuthScreenProps } from '../../types/navigation';
+import type { AuthScreenProps } from '@/types/navigation';
 import { colors, spacing, borderRadius } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import { AuthHeader, AuthInput, AuthPrimaryButton } from '../../components/auth';

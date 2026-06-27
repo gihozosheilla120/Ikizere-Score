@@ -10,7 +10,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { colors, borderRadius, spacing } from '../../theme';
 import { Text } from '../ui';
-import type { RecordCategory } from '../../types/models';
+import type { RecordCategory } from '@/types/models';
 
 interface CategorySelectProps {
   value: string;

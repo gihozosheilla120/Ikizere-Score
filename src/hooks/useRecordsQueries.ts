@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 import { recordsService } from '../services';
 import { queryKeys } from './queryKeys';
-import type { PaginationMeta } from '../types/api';
+import type { PaginationMeta } from '@/types/api';
 import type {
   CreateRecordPayload,
   FinancialRecord,
@@ -15,10 +15,19 @@ import type {
   RecordType,
   RecordsListFilters,
   UpdateRecordPayload,
-} from '../types/models';
+} from '@/types/models';
 import { DEFAULT_LIST_LIMIT } from '../constants/records';
 
 type RecordsPage = { records: FinancialRecord[] } & PaginationMeta;
+
+function invalidateScoreAndLoans(queryClient: ReturnType<typeof useQueryClient>) {
+  queryClient.invalidateQueries({ queryKey: queryKeys.score.all });
+  queryClient.invalidateQueries({ queryKey: queryKeys.loans.all });
+  setTimeout(() => {
+    queryClient.invalidateQueries({ queryKey: queryKeys.score.all });
+    queryClient.invalidateQueries({ queryKey: queryKeys.loans.all });
+  }, 1500);
+}
 
 export function useRecordsInfiniteQuery(filters: Omit<RecordsListFilters, 'page'>) {
   return useInfiniteQuery({
@@ -118,6 +127,7 @@ export function useCreateRecordMutation() {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.records.all });
       queryClient.invalidateQueries({ queryKey: ['records', 'monthlyInsights'] });
+      invalidateScoreAndLoans(queryClient);
     },
   });
 }
@@ -131,6 +141,7 @@ export function useUpdateRecordMutation(recordId: string) {
       queryClient.setQueryData(queryKeys.records.detail(recordId), data);
       queryClient.invalidateQueries({ queryKey: queryKeys.records.all });
       queryClient.invalidateQueries({ queryKey: ['records', 'monthlyInsights'] });
+      invalidateScoreAndLoans(queryClient);
     },
   });
 }
@@ -163,6 +174,7 @@ export function useDeleteRecordMutation() {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.records.all });
       queryClient.invalidateQueries({ queryKey: ['records', 'monthlyInsights'] });
+      invalidateScoreAndLoans(queryClient);
     },
   });
 }

@@ -8,8 +8,8 @@ import type {
   LoanProductParams,
   MainTabParamList,
   NavDispatchProp,
-} from '../types/navigation';
-import type { RecordType } from '../types/models';
+} from '@/types/navigation';
+import type { RecordType } from '@/types/models';
 
 /** Any navigation object that can dispatch actions (stack, tab, or composite). */
 type NavDispatch = NavDispatchProp;

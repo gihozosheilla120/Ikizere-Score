@@ -1,8 +1,9 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { queryClient } from '../hooks/queryClient';
-import { authService, LoginPayload, RegisterPayload } from '../services/authService';
+import { authService } from '../services/authService';
+import type { LoginPayload, RegisterPayload } from '@/types/models';
 import { tokenStorage } from '../services/tokenStorage';
-import type { User } from '../types/models';
+import type { User } from '@/types/models';
 
 export type AuthStatus = 'loading' | 'unauthenticated' | 'account_created' | 'authenticated';
 

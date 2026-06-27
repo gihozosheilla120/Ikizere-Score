@@ -7,7 +7,7 @@ import type {
   MainTabNavigationProp,
   RecordsListNavigationProp,
   ScoreInsightsNavigationProp,
-} from '../types/navigation';
+} from '@/types/navigation';
 
 export function useMainTabNavigation() {
   return useNavigation<MainTabNavigationProp>();

@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, borderRadius, spacing, typography } from '../../theme';
 import { Text } from '../ui';
-import type { Currency } from '../../types/models';
+import type { Currency } from '@/types/models';
 
 interface AmountInputProps {
   value: string;

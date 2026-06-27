@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { colors, borderRadius, spacing } from '../../theme';
 import { Text } from '../ui';
-import type { Currency } from '../../types/models';
+import type { Currency } from '@/types/models';
 import { CURRENCY_OPTIONS } from '../../constants/records';
 
 interface CurrencySelectProps {

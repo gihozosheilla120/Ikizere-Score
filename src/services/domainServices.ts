@@ -1,26 +1,30 @@
 import { API_ENDPOINTS } from '../constants/api';
 import { apiGet, apiPost, apiPut, apiPatch, apiDelete } from './apiClient';
 import type {
+  CreateLoanApplicationPayload,
   CreateRecordPayload,
   FinancialRecord,
   LoanApplication,
   LoanApplicationEvent,
-  LoanProductCard,
+  LoanMarketplaceFilters,
+  LoanMarketplaceResponse,
+  LoanProductDetail,
   MonthlyInsights,
   RecordCategory,
   RecordType,
   RecordsListFilters,
-  ScoreBreakdownFactor,
+  ScoreBreakdown,
+  ScoreHistoryEntry,
   ScoreSummary,
   UpdateRecordPayload,
-} from '../types/models';
-import type { PaginationMeta } from '../types/api';
+} from '@/types/models';
+import type { PaginationMeta } from '@/types/api';
 
 export const recordsService = {
   list(params?: RecordsListFilters) {
     return apiGet<{ records: FinancialRecord[] } & PaginationMeta>(
       API_ENDPOINTS.records.list,
-      params as Record<string, unknown>
+      params
     );
   },
 
@@ -57,17 +61,11 @@ export const scoreService = {
   },
 
   getBreakdown() {
-    return apiGet<{
-      currentScore: number;
-      rating: string;
-      factors: ScoreBreakdownFactor[];
-      breakdown: Record<string, number>;
-      lastCalculatedAt: string | null;
-    }>(API_ENDPOINTS.score.breakdown);
+    return apiGet<ScoreBreakdown>(API_ENDPOINTS.score.breakdown);
   },
 
   getHistory(params?: { page?: number; limit?: number }) {
-    return apiGet<{ history: Array<{ score: number; rating: string; calculatedAt: string }> }>(
+    return apiGet<{ history: ScoreHistoryEntry[] } & PaginationMeta>(
       API_ENDPOINTS.score.history,
       params
     );
@@ -75,33 +73,22 @@ export const scoreService = {
 };
 
 export const loansService = {
-  getMarketplace(params?: Record<string, unknown>) {
-    return apiGet<{
-      products: LoanProductCard[];
-      userContext: Record<string, unknown>;
-    }>(API_ENDPOINTS.loans.marketplace, params);
+  getMarketplace(params?: LoanMarketplaceFilters) {
+    return apiGet<LoanMarketplaceResponse>(API_ENDPOINTS.loans.marketplace, params);
   },
 
-  getProductById(id: string, params?: Record<string, unknown>) {
-    return apiGet<{ product: LoanProductCard }>(
+  getProductById(id: string, params?: LoanMarketplaceFilters) {
+    return apiGet<{ product: LoanProductDetail }>(
       API_ENDPOINTS.loans.marketplaceById(id),
       params
     );
   },
 
-  getEligibleProducts(params?: Record<string, unknown>) {
-    return apiGet<{
-      products: LoanProductCard[];
-      userContext: Record<string, unknown>;
-    }>(API_ENDPOINTS.loans.eligibleProducts, params);
+  getEligibleProducts(params?: LoanMarketplaceFilters) {
+    return apiGet<LoanMarketplaceResponse>(API_ENDPOINTS.loans.eligibleProducts, params);
   },
 
-  createApplication(payload: {
-    loanProductId: string;
-    requestedAmount: number;
-    requestedTermMonths: number;
-    purpose: string;
-  }) {
+  createApplication(payload: CreateLoanApplicationPayload) {
     return apiPost<{ application: LoanApplication }>(
       API_ENDPOINTS.loans.applications,
       payload

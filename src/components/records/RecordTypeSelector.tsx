@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { colors, borderRadius, spacing } from '../../theme';
 import { Text } from '../ui';
-import type { RecordType } from '../../types/models';
+import type { RecordType } from '@/types/models';
 import { RECORD_TYPE_FORM_TABS } from '../../constants/records';
 
 interface RecordTypeSelectorProps {

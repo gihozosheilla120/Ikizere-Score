@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { ROUTES } from '../../constants/routes';
 import { authNavigation } from '../../navigation/navigationActions';
-import type { AuthScreenProps } from '../../types/navigation';
-import type { BusinessType } from '../../types/models';
+import type { AuthScreenProps } from '@/types/navigation';
+import type { BusinessType } from '@/types/models';
 import { colors, spacing, borderRadius } from '../../theme';
 import { Text } from '../../components/ui/Text';
 import {
